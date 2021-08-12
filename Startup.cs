@@ -30,6 +30,8 @@ namespace WebApplication1
             //injection alanýdýr.
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+            services.AddMvc();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +52,10 @@ namespace WebApplication1
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
+            app.UseMvc();
+
         }
     }
 }
